@@ -117,7 +117,7 @@ Protocolo de Transferência de HiperTexto
 
 ### Entity (Entidades)
 
-- Basicamente é a classe que reprenta uma entidade do banco de dados no nodejs.
+- Basicamente é a representação de uma entidade do banco de dados no nodejs.
 
 # Nomenclaturas:
 
