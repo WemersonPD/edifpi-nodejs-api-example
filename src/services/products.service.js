@@ -1,66 +1,47 @@
+const ProductsRepository = require("../db/repository/products.repository");
+
+
 class ProductService {
-  products = [
-    {
-      id: 1,
-      name: 'Product 1',
-      description: 'Product 1',
-      price: 100
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      description: 'Product 2',
-      price: 200
-    },
-    {
-      id: 3,
-      name: 'Product 3',
-      description: 'Product 3',
-      price: 300
-    },
-  ]
+  productRepository = new ProductsRepository()
   
-  create(product) {
-    product.id = this.products.length + 1;
-    
-    this.products.push(product);
-  }
-
-  update(productId, product) {
-    const currentProductIndex = this.products
-      .findIndex((currentProduct) => currentProduct.id == productId);
-    
-    if(currentProductIndex == -1) {
-      throw new Error('O produto não existe!');
+  async create(product) {
+    try {
+      await this.productRepository.create(product);
+    } catch(error) {
+      throw new Error(error);
     }
-
-    this.products[currentProductIndex] = product;
   }
 
-  listAll() {
-    return this.products;
-  }
-
-  getById(productId) {
-    const currentProduct = this.products
-      .find((currentProduct) => currentProduct.id == productId);
-  
-    if(currentProduct == -1) {
-      throw new Error('O produto não existe!');
+  async update(productId, product) {
+    try {
+      return await this.productRepository.update(productId, product);
+    } catch(error) {
+      throw new Error(error);
     }
-
-    return currentProduct;
   }
 
-  deleteById(productId) {
-    const currentProductIndex = this.products
-      .findIndex((currentProduct) => currentProduct.id == productId);
-    
-    if(currentProductIndex == -1) {
-      throw new Error('O produto não existe!');
+  async listAll() {
+    try {
+      return await this.productRepository.listAll();
+    } catch(error) {
+      throw new Error(error);
     }
+  }
 
-    this.products.splice(currentProductIndex, 1);
+  async getById(productId) {
+    try {
+      return await this.productRepository.getById(productId);
+    } catch(error) {
+      throw new Error(error);
+    }
+  }
+
+  async deleteById(productId) {
+    try {
+      await this.productRepository.deleteById(productId);
+    } catch(error) {
+      throw new Error(error);
+    }
   }
 }
 
